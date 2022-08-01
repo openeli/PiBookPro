@@ -1,29 +1,51 @@
 # PiBookPro
 Here are instructions for installing everything you need to run the PiBookPro on a Raspberry Pi 3B or 4, using the latest Raspberry Pi OS dated August 2020, and the latest DisplayLink 5.3.1 drivers for Ubuntu.*
-
-
-
+#
+#
+#
+#
 
 
 Installing on Pi 2B/3B/4, Raspberry Pi OS March 4 2021, DisplayLink 5.4
 There have been a few Raspberry Pi OS updates, and some issues with the DisplayLink software, since I originally wrote these instructions. Unfortunately, the current version of Raspberry Pi OS and the previous and current DisplayLink driver appear to be incompatible out of the box. You'll need to do a little extra work to keep your Pi Book Pro running until everything matches back up again.
+#
+#
+#
 
 Here are what I believe to be accurate instructions for installing everything you need to run the Pi Book Pro on a Raspberry Pi 2B, 3B or 4, using the latest Raspberry Pi OS dated March 4 2021, and the legacy DisplayLink 5.3.1 drivers for Ubuntu.
+#
+#
+#
 
 Plug an external HDMI display, USB keyboard, and USB mouse into your Raspberry Pi. You cannot use the Pi Book Pro to set up the Raspberry Pi for the first time.
+#
+#
+#
 
 Format a Micro SD card with "Raspberry Pi OS (Legacy)". Using the official Raspberry Pi Imager is recommended (it's under "Raspberry Pi OS (other)"). 
 Follow the official instructions to set up your Raspberry Pi, including making sure your networking is working (wifi or ethernet). Restart when prompted.
+#
+#
+#
 
 Next, we need to enable an option called "kernel mode-setting." Click on the Terminal icon () to open a console window, and type sudo raspi-config. This opens the text-based raspi-config utility. Navigate the menus from Advanced Options to GL Driver and enable Fake KMS. See the official raspi-config documentation for more detailed instructions if you need help. If it asks you to reboot, say Yes.
+#
+#
+#
 
 Then, we need to roll back the Raspberry Pi OS kernel version to a compatible version. Raspberry Pi OS now ships with 5.10.x, and we need 5.4.x.
+#
+#
+#
 
 Click on the Terminal icon again, and enter the following commands to install a previous kernel, install supporting software, install the source code for that kernel, and configure the source code for that kernel. I've included the full output of the commands for you to compare to, as this is an atypical process:
-
+#
+#
+#
 
 
 $ sudo rpi-update 43022f5adbbf5d6e05ea0e022a3090c2c9feff7c
+
  *** Raspberry Pi firmware updater by Hexxeh, enhanced by AndrewS and Dom
  *** Performing self-update
  *** Relaunching after update
@@ -67,7 +89,12 @@ Would you like to proceed? (y/N)
  *** A reboot is needed to activate the new firmware
 Then, type sudo reboot to reboot into the new (old) kernel. Next, five more commands (apt, wget, chmod, and rpi-source twice):
 
+#
+#
+#
+
 $ sudo apt install git bc bison flex libssl-dev
+
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
@@ -136,6 +163,10 @@ Saving to: ‘/usr/local/bin/rpi-source’
 /usr/local/bin/rpi- 100%[===================>]  13.89K  --.-KB/s    in 0.001s  
 
 2021-04-14 21:35:25 (9.44 MB/s) - ‘/usr/local/bin/rpi-source’ saved [14222/14222]
+
+#
+#
+#
 
 $ sudo chmod +x /usr/local/bin/rpi-source
 $ /usr/local/bin/rpi-source -q --tag-update
